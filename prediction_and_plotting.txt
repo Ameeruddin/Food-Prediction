@@ -1,0 +1,21 @@
+#install.packages('caTools')
+library(caTools)
+set.seed(11)
+split=sample.split(dataset$Expiry,SplitRatio=0.75)
+#train_set=dataset[1:264,1:7]
+#test_set=dataset[265,1:7]
+train_set=subset(dataset,split==TRUE)
+test_set=subset(dataset,split==FALSE)
+#train_set[,1:2]=scale(train_set[,1:2])
+#test_set[,1:2]=scale(test_set[,1:2])
+regressor=lm(formula=Expiry~.,train_set)
+pred=predict(regressor,newdata = test_set)
+
+
+	
+
+The dataset is then plotted using ggplot2 package which is a predefined package in R programming language.
+#install.packages("ggplot2")
+library(ggplot2)
+p=ggplot(data=dataset1,aes(x=Temperature,y=Expiry,colour=Main,size=Side))
+p+geom_point()
